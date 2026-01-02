@@ -84,7 +84,7 @@ const ContactSection = () => {
                 onChange={handleChange}
                 required
                 className="bg-card border-border/50 focus:border-primary h-12"
-                placeholder="+91 98765 43210"
+                placeholder="+91 70194 74809"
               />
             </div>
           </div>
