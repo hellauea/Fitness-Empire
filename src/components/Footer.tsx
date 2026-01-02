@@ -46,9 +46,9 @@ const Footer = () => {
         <div>
           <h3 className="uppercase text-sm text-muted-foreground mb-4">Contact</h3>
           <ul className="space-y-3 text-sm text-muted-foreground">
-            <li className="flex gap-2"><MapPin /> Nagawara, Bengaluru</li>
-            <li className="flex gap-2"><Phone /> +91 98765 43210</li>
-            <li className="flex gap-2"><Mail /> info@fitnessempire.in</li>
+            <li className="flex gap-2"><MapPin /> Fitness Empire operates across Karnataka and Andhra Pradesh.</li>
+            <li className="flex gap-2"><Phone /> +91 7019474809</li>
+            <li className="flex gap-2"><Mail /> fitnessempireblr@gmail.com</li>
           </ul>
         </div>
       </div>
