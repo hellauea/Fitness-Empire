@@ -23,7 +23,7 @@ const Navbar = ({ onOpenLocationSelector }: NavbarProps) => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-20">
 
-          {/* LOGO — PNG ONLY */}
+          {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img
               src="/brand/logo-icon.png"
@@ -35,7 +35,7 @@ const Navbar = ({ onOpenLocationSelector }: NavbarProps) => {
             </span>
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -60,10 +60,11 @@ const Navbar = ({ onOpenLocationSelector }: NavbarProps) => {
             </Button>
           </div>
 
-          {/* Mobile Button */}
+          {/* Mobile Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2"
+            aria-label="Toggle Menu"
           >
             {isOpen ? <X /> : <Menu />}
           </button>
@@ -74,10 +75,12 @@ const Navbar = ({ onOpenLocationSelector }: NavbarProps) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className="md:hidden bg-background border-t border-border/50"
+            style={{ pointerEvents: "auto" }}
           >
             <div className="px-6 py-4 space-y-4">
               {navLinks.map((link) => (
@@ -90,6 +93,18 @@ const Navbar = ({ onOpenLocationSelector }: NavbarProps) => {
                   {link.label}
                 </a>
               ))}
+
+              {/* Mobile Locations */}
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  onOpenLocationSelector();
+                }}
+                className="flex items-center gap-2 text-lg font-medium"
+              >
+                <MapPin className="w-5 h-5" />
+                Locations
+              </button>
 
               <Button className="w-full mt-4">JOIN NOW</Button>
             </div>
