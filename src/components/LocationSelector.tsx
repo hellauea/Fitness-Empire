@@ -5,10 +5,14 @@ import { locations } from "@/data/locations";
 interface LocationSelectorProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelectLocation: (locationId: string) => void;
 }
 
-const LocationSelector = ({ isOpen, onClose, onSelectLocation }: LocationSelectorProps) => {
+const LocationSelector = ({ isOpen, onClose }: LocationSelectorProps) => {
+  const handleOpenLocation = (mapsUrl: string) => {
+    window.open(mapsUrl, "_blank", "noopener,noreferrer");
+    onClose();
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -18,16 +22,19 @@ const LocationSelector = ({ isOpen, onClose, onSelectLocation }: LocationSelecto
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm"
         >
+          {/* Close Button */}
           <motion.button
             onClick={onClose}
             className="absolute right-6 top-6 p-2 text-muted-foreground hover:text-foreground transition-colors"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            aria-label="Close location selector"
           >
             <X className="h-6 w-6" />
           </motion.button>
 
           <div className="w-full max-w-6xl px-6">
+            {/* Heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -42,6 +49,7 @@ const LocationSelector = ({ isOpen, onClose, onSelectLocation }: LocationSelecto
               </h2>
             </motion.div>
 
+            {/* Locations Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {locations.map((location, index) => (
                 <motion.button
@@ -49,7 +57,10 @@ const LocationSelector = ({ isOpen, onClose, onSelectLocation }: LocationSelecto
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 + index * 0.05 }}
-                  onClick={() => !location.isComingSoon && onSelectLocation(location.id)}
+                  onClick={() =>
+                    !location.isComingSoon &&
+                    handleOpenLocation(location.mapsUrl)
+                  }
                   disabled={location.isComingSoon}
                   className={`relative group p-6 rounded-lg border border-border bg-card/50 text-left transition-all duration-300 ${
                     location.isComingSoon
@@ -57,29 +68,34 @@ const LocationSelector = ({ isOpen, onClose, onSelectLocation }: LocationSelecto
                       : "hover:border-primary hover:bg-card"
                   }`}
                 >
+                  {/* Coming Soon Badge */}
                   {location.isComingSoon && (
                     <span className="absolute top-3 right-3 px-2 py-1 text-xs font-medium bg-primary/20 text-primary rounded">
                       Coming Soon
                     </span>
                   )}
-                  
+
+                  {/* Content */}
                   <div className="flex items-start gap-3">
                     <MapPin className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">{location.name}</h3>
+                      <h3 className="font-semibold text-lg mb-1">
+                        {location.name}
+                      </h3>
                       <p className="text-sm text-muted-foreground">
                         {location.area}, {location.city}
                       </p>
                     </div>
                   </div>
 
+                  {/* Hover CTA */}
                   {!location.isComingSoon && (
                     <motion.div
                       className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity"
                       initial={false}
                     >
                       <span className="text-sm font-medium text-primary">
-                        Enter Gym →
+                        Open in Maps →
                       </span>
                     </motion.div>
                   )}
