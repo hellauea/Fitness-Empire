@@ -18,8 +18,8 @@ const transformations: Transformation[] = [
     location: "Nagawara",
     duration: "12 Weeks",
     result: "Lost 18 kg",
-    beforeImage: "/placeholder.svg",
-    afterImage: "/placeholder.svg",
+    beforeImage: "/transformations/rahul-nagawara-before.png",
+    afterImage: "/transformations/rahul-nagawara-after.png",
   },
   {
     id: 2,
@@ -27,8 +27,9 @@ const transformations: Transformation[] = [
     location: "Brookefield",
     duration: "20 Weeks",
     result: "Gained 8 kg muscle",
-    beforeImage: "/placeholder.svg",
-    afterImage: "/placeholder.svg",
+    beforeImage: "/transformations/arjun-brookefield-before.png",
+    afterImage: "/transformations/arjun-brookefield-after.png",
+
   },
 ];
 
